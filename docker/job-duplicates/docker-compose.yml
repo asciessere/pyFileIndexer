@@ -1,0 +1,15 @@
+version: '3'
+services:
+    job-duplicates:
+        image: "pyfileindexer-app:latest"
+        environment:
+            - PFIDX_JOB=DUPES
+        networks:
+            - pfidx_net
+        external_links:
+            - redis-server
+        command: python3 pyFileIndexer.py
+networks:
+    pfidx_net:
+        driver: bridge
+

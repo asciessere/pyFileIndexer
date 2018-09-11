@@ -1,0 +1,10 @@
+version: '3'
+services:
+    redis-server:
+        image: "redis:latest"
+        networks:
+            - pfidx_net
+networks:
+    pfidx_net:
+        driver: bridge
+

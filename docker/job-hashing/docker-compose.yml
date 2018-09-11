@@ -1,0 +1,29 @@
+version: '3'
+services:
+    job-hasher:
+        image: "pyfileindexer-app:latest"
+        environment:
+            - PFIDX_HASH=SHA1
+            - PFIDX_JOB=HASHING
+            - PFIDX_PATHS=/home/pyFileIndexer/share
+        volumes:
+            - pyfileindexer-volume:/home/pyFileIndexer/share
+        depends_on:
+            - "pyfileindexer-data"
+        networks:
+            - pfidx_net
+        external_links:
+            - redis-server
+        command: python3 pyFileIndexer.py
+    pyfileindexer-data:
+        image: "pyfileindexer-data:latest"
+        volumes:
+            - pyfileindexer-volume:/home/pyFileIndexer/data
+        networks:
+            - pfidx_net
+volumes:
+    pyfileindexer-volume:
+networks:
+    pfidx_net:
+        driver: bridge
+
